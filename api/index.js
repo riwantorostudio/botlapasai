@@ -7,8 +7,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { message, sender } = req.body;
-
+     const message = req.body.message;
+const sender = req.body.sender || req.body.from || req.body.target;
+      
       if (!message || !sender) {
         return res.status(200).json({ status: 'ignored', message: 'Bukan pesan teks' });
       }
@@ -54,3 +55,4 @@ export default async function handler(req, res) {
 
   return res.status(405).send('Method Not Allowed');
 }
+
